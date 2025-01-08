@@ -1,0 +1,92 @@
+body {
+    background-image: url('/images/background_security.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Open Sans', Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+form label {
+    font-size: 1.1em;
+    color: #444;
+    font-family: 'Playfair Display', serif;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+form button {
+    padding: 12px;
+    background-color: #4d0e4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #b081b4;
+}
+
+form .error {
+    color: #d32f2f;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+a {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #825cdb;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #b77ec5;
+}
+
+.error {
+    color: #d32f2f;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 10px;
+}

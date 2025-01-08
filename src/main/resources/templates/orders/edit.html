@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Order</title>
+    <link rel="stylesheet" href="/customer-orders/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Order</h2>
+        <form th:action="@{/api/orders/edit/{id}(id=${order.id})}" method="post">
+            <input type="hidden" th:value="${order.id}" name="id" />
+        
+            <label for="dish">Dish:</label>
+            <select id="dish" name="dishId" required onchange="updatePrice()">
+                <option value="" disabled selected>Select a dish</option>
+                <option th:each="dish : ${dishes}" 
+                        th:value="${dish.id}" 
+                        th:data-price="${dish.price}" 
+                        th:text="${dish.name}"></option>
+            </select>
+
+            <p id="dish-price">Price: <span id="price-value">0.00</span> zł</p>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" th:value="${order.quantity}" required min="1">
+
+            <p id="total-price">Total Price: <span id="total-value">0.00</span> zł</p>
+
+            <label for="reservationId">Reservation:</label>
+            <select id="reservationId" name="reservationId">
+                <option value="">No reservation</option>
+                <option th:each="reservation : ${reservations}" 
+                        th:value="${reservation.id}" 
+                        th:text="${reservation.name}" 
+                        th:selected="${order.reservation != null and reservation.id == order.reservation.id or (order.reservation == null and reservation.id == '')}">
+                </option>
+            </select>
+        
+            <button type="submit">Save</button>
+        </form>
+
+        <script>
+            function updatePrice() {
+                const dishSelect = document.getElementById('dish');
+                const selectedOption = dishSelect.options[dishSelect.selectedIndex];
+                const dishPrice = parseFloat(selectedOption.dataset.price || 0);
+                const quantity = document.getElementById('quantity').value || 1;
+                
+                const priceValue = dishPrice.toFixed(2);
+                const totalValue = (dishPrice * quantity).toFixed(2);
+
+                const priceValueElement = document.getElementById('price-value');
+                const totalValueElement = document.getElementById('total-value');
+        
+                priceValueElement.textContent = dishPrice.toFixed(2);
+                totalValueElement.textContent = (dishPrice * quantity).toFixed(2);
+            }
+        
+            window.onload = updatePrice;
+            document.getElementById('quantity').addEventListener('input', updatePrice);
+        </script>
+    </div>
+</body>
+</html>
+

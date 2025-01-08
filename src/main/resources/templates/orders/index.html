@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="/customer-orders/styles.css">
+</head>
+<body>
+    <div th:if="${loggedUser != null}" class="logged-in-user">
+        <span>Logged in as: <span th:text="${loggedUser}"></span></span>
+        <a href="/logout" class="btn btn-logout">Logout</a>
+    </div>
+    <div class="container">
+        <h1>Orders</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dish</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total Price</th>
+                    <th>Reservation</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.dish != null ? order.dish.name : 'Dish not found'}">
+                    <td th:text="${order.quantity}"></td>
+                    <td th:text="${order.dish != null ? order.dish.price: 'Price not found'}"></td>
+                    <td th:text="${order.dish != null ? #numbers.formatDecimal(order.dish.price * order.quantity, 2, 2): 'Total price not found'}"></td>
+                    <td>
+                        <span th:if="${order.reservation != null}" th:text="${order.reservation.id}"></span>
+                        <span th:if="${order.reservation == null}">No reservation</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/api/orders/edit/{id}(id=${order.id})}" class="btn btn-edit">Edit</a>
+                        <form th:action="@{'/api/orders/delete/' + ${order.id}}" method="post">
+                            <button type="submit" class="btn btn-delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/api/orders/add" class="btn btn-add">Add Order</a>
+        <a href="/api/reservations" class="btn btn-back">Back to Reservations</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editing a reservation</title>
+    <link rel="stylesheet" href="/reservations/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Editing a reservation</h1>
+        <form class="reservation-form" th:action="@{'/api/reservations/edit/' + ${reservation.id}}" th:object="${reservation}" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required placeholder="Enter name">
+            
+            <label for="date">Date:</label>
+            <input type="date" id="date" th:field="*{date}" required>
+            <script>
+                document.getElementById('date').min = new Date().toISOString().split("T")[0];
+            </script>
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" th:field="*{time}" min="08:00" max="23:30" required>
+
+            <script>
+                document.getElementById('time').addEventListener('input', function() {
+                    var time = this.value;
+                    if (time < "08:00" || time > "23:30") {
+                        this.setCustomValidity('Czas musi być między 08:00 a 23:30.');
+                    } else {
+                        this.setCustomValidity('');
+                    }
+                });
+            </script>
+            
+            <label for="numberOfPeople">Number of People:</label>
+            <input type="number" id="numberOfPeople" th:field="*{numberOfPeople}" required min="1" placeholder="Enter number of people">
+            <button type="submit" class="btn">Update the reservation</button>
+        </form>
+
+        <a href="/api/reservations" class="btn-cancel">Return</a>
+    </div>
+</body>
+</html>
