@@ -46,11 +46,6 @@ public class OrderController {
         return "orders/index";
     }
 
-    @GetMapping("/reservation/{reservationId}")
-    public List<CustomerOrder> getOrdersByReservation(@PathVariable Long reservationId) {
-        return orderRepository.findAllByReservationId(reservationId);
-    }
-
     @GetMapping("/add")
     public String addOrderPage(Model model, HttpSession session) {
         if (session.getAttribute("loggedUser") == null) {
