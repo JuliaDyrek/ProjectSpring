@@ -26,7 +26,7 @@
                 document.getElementById('time').addEventListener('input', function() {
                     var time = this.value;
                     if (time < "08:00" || time > "23:30") {
-                        this.setCustomValidity('Czas musi być między 08:00 a 23:30.');
+                        this.setCustomValidity('The time must be between 08:00 and 23:30.');
                     } else {
                         this.setCustomValidity('');
                     }
